@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Book {
 
@@ -6,19 +7,37 @@ public class Book {
     private String author;
     private int numberOfPages;
     private Genre genre;
-    private int readingTime;
     private int isbn;
-    private ArrayList<Chapter> chapters;
     private ArrayList<Integer> isbnArray = new ArrayList<Integer>();
+    private ArrayList<Chapter> chapters = new ArrayList<>();
+
+
 
     public Book (String title, String author, int numberOfPages, Genre genre) {
         this.title = title;
         this.author = author;
         this.numberOfPages = numberOfPages;
         this.genre = genre;
-        readingTime = readTime();
-        final int i = generateISBN();
     }
+
+    /*
+    public void addChapter () {
+        Scanner sc = new Scanner(System.in);
+        String tempChapterTitle;
+        int tempPages;
+        int readingTime;
+        String chapterAlias;
+        System.out.print("Please add a title for the chapter: ");
+        tempChapterTitle = sc.nextLine();
+        System.out.print("Please add the number of pages in this chapter: ");
+        tempPages = sc.nextInt();
+        System.out.print("Please enter the reading time per page: ");
+        readingTime = sc.nextInt();
+        System.out.println("Enter chapter alias: ");
+        sc.nextLine(); // control flow
+        chapterAlias = sc.nextLine();
+    }
+     */
 
     public int readTime() {
         if (getNumberOfPages() < 100) {
@@ -32,38 +51,12 @@ public class Book {
         }
     }
 
-    public int generateISBN () {
-        int isbn = (int) Math.floor(Math.random()*9999);
-        for (int i  = 0; i < isbnArray.size(); i++) {
-            if (isbn != isbnArray.get(i)) {
-                isbnArray.add(isbn);
-            }
-        }
-        return isbn;
-    }
-
     void printState () {
         System.out.println(title + "\nWas written by: " + author + "\n" + title + " consists of " + numberOfPages + " pages.\nThe Genre of this book is: " + genre);
     }
 
+
     // getters and setters
-
-    public int getReadingTime() {
-        return readingTime;
-    }
-
-    public void setReadingTime(int readingTime) {
-        this.readingTime = readingTime;
-    }
-
-    public int getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(int isbn) {
-        this.isbn = isbn;
-    }
-
      public Genre getGenre() {
         return genre;
     }
