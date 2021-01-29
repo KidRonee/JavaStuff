@@ -62,14 +62,13 @@ public class Program {
 
         System.out.println(names.size());
 
-        /*
-        Artist art1 = new Artist(names.get(0), LocalDate.parse(DOBS.get(0)), cities.get(0), countries.get(0));
-        Artist art2 = new Artist(names.get(1), LocalDate.parse(DOBS.get(1)), cities.get(1), countries.get(1));
-        Artist art3 = new Artist(names.get(2), LocalDate.parse(DOBS.get(2)), cities.get(2), countries.get(2));
-        Artist art4 = new Artist(names.get(3), LocalDate.parse(DOBS.get(3)), cities.get(3), countries.get(3));
-        Artist art5 = new Artist(names.get(4), LocalDate.parse(DOBS.get(4)), cities.get(4), countries.get(4));
-        Artist art7 = new Artist(names.get(6), LocalDate.parse(DOBS.get(6)), cities.get(6), countries.get(6));
-        Artist art6 = new Artist(names.get(5), LocalDate.parse(DOBS.get(5)), cities.get(5), countries.get(5));
+        Artist art1 = new Artist(names.get(0), (DOBS.get(0)), cities.get(0), countries.get(0));
+        Artist art2 = new Artist(names.get(1), (DOBS.get(1)), cities.get(1), countries.get(1));
+        Artist art3 = new Artist(names.get(2), (DOBS.get(2)), cities.get(2), countries.get(2));
+        Artist art4 = new Artist(names.get(3), (DOBS.get(3)), cities.get(3), countries.get(3));
+        Artist art5 = new Artist(names.get(4), (DOBS.get(4)), cities.get(4), countries.get(4));
+        Artist art7 = new Artist(names.get(6), (DOBS.get(6)), cities.get(6), countries.get(6));
+        Artist art6 = new Artist(names.get(5), (DOBS.get(5)), cities.get(5), countries.get(5));
 
 
 
@@ -78,11 +77,16 @@ public class Program {
         art2.setDateOfBirth(LocalDate.parse("6666-12-13"));
         art4.setCountry("your mum");
 
-        FileWriter writeToFile = new FileWriter("C:\\Users\\Mathi\\Desktop\\opg7.txt");
-        writeToFile.write(art1.getArtistName());
+        FileWriter writeToFile = new FileWriter("C:\\Users\\Mathi\\Desktop\\opg8.txt");
+        writeToFile.write(art1.sOut() + "\n");
+        writeToFile.write(art2.sOut() + "\n");
+        writeToFile.write(art3.sOut() + "\n");
+        writeToFile.write(art4.sOut() + "\n");
+        writeToFile.write(art5.sOut() + "\n");
+        writeToFile.write(art6.sOut() + "\n");
+        writeToFile.write(art7.sOut() + "\n");
         writeToFile.close();
 
-         */
 
     }
 
