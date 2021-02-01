@@ -85,6 +85,4 @@ public class Artist {
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
-
-
 }

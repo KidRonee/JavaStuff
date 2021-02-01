@@ -14,41 +14,6 @@ public class Program {
         runProgram();
     }
 
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    public void oppgave8() throws IOException {
-        File readFile = new File("C:\\Users\\Mathi\\Desktop\\opg7.txt");
-        Scanner file = new Scanner(readFile);
-        int i = 0;
-        while (file.hasNextLine()) {
-            String name = file.nextLine();
-            LocalDate birthDate = LocalDate.parse(file.nextLine());
-            String city = file.nextLine();
-            String country = file.nextLine();
-            String ignore = file.nextLine();
-            artists.add(new Artist(name, city, country, birthDate));
-            artists.get(i).setId(generateId());
-            i++;
-        }
-        file.close();
-
-        // creating file writer
-        BufferedWriter bw = new BufferedWriter(
-                new FileWriter("C:\\Users\\Mathi\\Desktop\\opg81.txt")
-        );
-        try (BufferedWriter bufferedWriter = bw) {
-            for (i = 0; i < artists.size(); i++) {
-                bw.write(artists.get(i).printState());
-            }
-        } catch (Exception ex) {
-            return;
-        }
-        bw.close();
-    }
-
     // generates random int 0-1000000
     public int generateId() {
         Random id = new Random();
@@ -80,6 +45,7 @@ public class Program {
                     System.out.println("No matches in our database");
                     break;
                 case 3:
+                    input.nextLine(); // controlling linefeed
                     System.out.print("Enter a name for your artist: \n>");
                     String tempName = input.nextLine();
                     System.out.print("Enter a city for your artist: \n>");
@@ -88,8 +54,9 @@ public class Program {
                     String tempCountry = input.nextLine();
                     System.out.print("Enter a birth date for your artist (yyyy-mm-dd): \n>");
                     LocalDate tempBirthdate = LocalDate.parse(input.next());
-                    int generateID = generateId();
+
                     artists.add(new Artist(tempName, tempCity, tempCountry, tempBirthdate));
+                    artists.get(artists.size()-1).setId(generateId());
                     break;
                 case 4:
                     System.out.println("Enter the artist id you wish to change information on: ");
@@ -103,22 +70,22 @@ public class Program {
                             switch (input.nextInt()) {
                                 case 1:
                                     System.out.print("Enter a name\n>");
-                                    input.nextLine();
+                                    input.nextLine(); //controlling linefeed
                                     artist.setName(input.nextLine());
                                     break;
                                 case 2:
                                     System.out.print("Enter a city\n>");
-                                    input.nextInt();
+                                    input.nextLine(); //controlling linefeed
                                     artist.setCity(input.nextLine());
                                     break;
                                 case 3:
                                     System.out.print("Enter a country\n>");
-                                    input.nextLine();
+                                    input.nextLine(); // controlling linefeed
                                     artist.setCountry(input.nextLine());
                                     break;
                                 case 4:
                                     System.out.print("Enter a date (yyyy-mm-dd)\n>");
-                                    input.nextLine();
+                                    input.nextLine(); // controlling linefeed
                                     artist.setBirthDate(LocalDate.parse(input.nextLine()));
                                     break;
                                 default:
@@ -156,14 +123,44 @@ public class Program {
             }
         }
     }
+    public void oppgave8() throws IOException {
+        File readFile = new File("C:\\Users\\Mathi\\Desktop\\opg7.txt");
+        Scanner file = new Scanner(readFile);
+        int i = 0;
+        while (file.hasNextLine()) {
+            String name = file.nextLine();
+            LocalDate birthDate = LocalDate.parse(file.nextLine());
+            String city = file.nextLine();
+            String country = file.nextLine();
+            String ignore = file.nextLine();
+            artists.add(new Artist(name, city, country, birthDate));
+            artists.get(i).setId(generateId());
+            i++;
+        }
+        file.close();
+
+        // creating file writer
+        BufferedWriter bw = new BufferedWriter(
+                new FileWriter("C:\\Users\\Mathi\\Desktop\\opg81.txt")
+        );
+        try (BufferedWriter bufferedWriter = bw) {
+            for (i = 0; i < artists.size(); i++) {
+                bw.write(artists.get(i).printState());
+            }
+        } catch (Exception ex) {
+            return;
+        }
+        bw.close();
+    }
+
 
     public void menu() {
         System.out.print(
-                "#1 Display all artists info.\n" +
-                        "#2 Lookup artist on ID.\n" +
-                        "#3 Add artist.\n" +
-                        "#4 Update artist (on id).\n" +
-                        "#5 To save and quit!\n>"
+            "#1 Display all artists info.\n" +
+            "#2 Lookup artist on ID.\n" +
+            "#3 Add artist.\n" +
+            "#4 Update artist (on id).\n" +
+            "#5 To save and quit!\n>"
         );
     }
 }
