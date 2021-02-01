@@ -1,27 +1,17 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Program test = new Program();
-       test.oppgave7();
-
-        /*
-        Program instance = new Program();
-        try {
-            instance.oppgave4();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            instance.oppgave5();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-         */
+        Program program = new Program();
+        program.oppgave8();
+        program.ekstraOppgave();
     }
 }
