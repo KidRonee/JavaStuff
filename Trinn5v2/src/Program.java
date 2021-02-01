@@ -19,7 +19,6 @@ public class Program {
         Random id = new Random();
         return id.nextInt(1000000);
     }
-
     // runs program
     public void runProgram() throws IOException {
         oppgave8();
