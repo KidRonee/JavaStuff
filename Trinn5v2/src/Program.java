@@ -35,9 +35,9 @@ public class Program {
                     break;
                 case 2:
                     System.out.print("Please enter an artist ID: >");
-                    int i = 0;
+                    int tempInput = input.nextInt();
                     for (Artist artist : artists) {
-                        if (input.nextInt() == artist.getId()) {
+                        if (tempInput == artist.getId()) {
                             System.out.println(artist.printState());
                             break;
                         }
@@ -59,14 +59,16 @@ public class Program {
                     artists.get(artists.size()-1).setId(generateId());
                     break;
                 case 4:
-                    System.out.println("Enter the artist id you wish to change information on: ");
+                    System.out.print("Enter the artist id you wish to change information on:\n>");
+                    tempInput = 0;
+                    tempInput = input.nextInt();
                     for (Artist artist : artists) {
-                        if (input.nextInt() == artist.getId()) {
+                        if (tempInput == artist.getId()) {
                             System.out.println("What information would you like to change?\n" +
                                     "#1 name\n" +
                                     "#2 city\n" +
                                     "#3 country\n" +
-                                    "#4 date of birth");
+                                    "#4 date of birth\n>");
                             switch (input.nextInt()) {
                                 case 1:
                                     System.out.print("Enter a name\n>");
@@ -93,13 +95,12 @@ public class Program {
                                     break;
                             }
                         }
-                        System.out.println("No artists found...");
-                        break;
                     }
+                    System.out.println("No artists with that ID in our database...");
                     break;
                 case 5:
                     System.out.println("Saving...");
-                    for (i = 0; i < 3; i++) {
+                    for (int i = 0; i < 3; i++) {
                         System.out.println(".");
                     }
                     BufferedWriter bw = new BufferedWriter(
