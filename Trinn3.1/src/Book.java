@@ -2,16 +2,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Book {
-
     private String title;
     private String author;
     private int numberOfPages;
     private Genre genre;
-    private int isbn;
-    private ArrayList<Integer> isbnArray = new ArrayList<Integer>();
+    private String isbn;
+    private int minutesPerPage;
     private ArrayList<Chapter> chapters = new ArrayList<>();
-
-
 
     public Book (String title, String author, int numberOfPages, Genre genre) {
         this.title = title;
@@ -20,41 +17,21 @@ public class Book {
         this.genre = genre;
     }
 
-    /*
-    public void addChapter () {
-        Scanner sc = new Scanner(System.in);
-        String tempChapterTitle;
-        int tempPages;
-        int readingTime;
-        String chapterAlias;
-        System.out.print("Please add a title for the chapter: ");
-        tempChapterTitle = sc.nextLine();
-        System.out.print("Please add the number of pages in this chapter: ");
-        tempPages = sc.nextInt();
-        System.out.print("Please enter the reading time per page: ");
-        readingTime = sc.nextInt();
-        System.out.println("Enter chapter alias: ");
-        sc.nextLine(); // control flow
-        chapterAlias = sc.nextLine();
-    }
-     */
-
-    public int readTime() {
-        if (getNumberOfPages() < 100) {
-            return 50;
-        } else if (getNumberOfPages() > 100 && getNumberOfPages() <= 200) {
-            return 100;
-        } else if (getNumberOfPages() > 200 && getNumberOfPages() <= 300) {
-            return 150;
-        } else {
-            return 300;
-        }
+    public int getReadingTime() {
+        return getNumberOfPages()*getMinutesPerPage();
     }
 
+    // mod this
     void printState () {
-        System.out.println(title + "\nWas written by: " + author + "\n" + title + " consists of " + numberOfPages + " pages.\nThe Genre of this book is: " + genre);
+        System.out.println("ISBN:" + isbn + "\nTitle: " + title + "\nAuthor: " + author + "\nPages in book: " + numberOfPages + "\nGenre: " + genre + "\navg reading time per page: " + minutesPerPage);
+        System.out.println("Chapters: ");
+        for (Chapter c :
+                chapters) {
+            c.printChapterInformation();
+        }
+        System.out.println("Reading time for this book is " + getReadingTime() + " minutes.");
+        System.out.println("-----------------------------------");
     }
-
 
     // getters and setters
      public Genre getGenre() {
@@ -87,5 +64,21 @@ public class Book {
 
      public int getNumberOfPages () {
         return numberOfPages;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public int getMinutesPerPage() {
+        return minutesPerPage;
+    }
+
+    public void setMinutesPerPage(int minutesPerPage) {
+        this.minutesPerPage = minutesPerPage;
     }
 }

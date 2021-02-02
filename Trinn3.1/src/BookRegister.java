@@ -1,6 +1,7 @@
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class BookRegister {
@@ -9,12 +10,91 @@ public class BookRegister {
     String author;
     int numberOfPages;
     Genre genre;
-    String bookName;
+
+    public BookRegister () {
+        addNPCBooks();
+        userInteraction();
+    }
+
+    public void userInteraction() {
+        System.out.println("Welcome to my store motherucker");
+        Scanner sc = new Scanner(System.in);
+        int choice = 0;
+        while (choice != 7) {
+            menu();
+            System.out.print("Enter a number 1-7\n>");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1 : addBook(); break;
+                case 2: showBooksInArray(); break;
+                case 3: printBooksByAuthor(); break;
+                case 4: printBooksByGenre(); break;
+                case 5: showBooksByReadingTime(); break;
+                case 6: removeBook(); break;
+                case 7: quit(); choice = 7;
+                default:
+                    System.out.println("Invalid input");
+                    break;
+                    }
+            }
+        }
+
+        public void quit() {
+            System.out.println("Thank you for using my bookregister! See you again soon, bye...");
+        }
+
+        public void showBooksByReadingTime() {
+        Scanner sc = new Scanner(System.in);
+            System.out.print("Enter max reading time (min):\n>");
+            int userInput = sc.nextInt();
+            for (Book book : bookList) {
+                if (book.getReadingTime() < userInput) {
+                    book.printState();
+                }
+            }
+        }
+
+        public void removeBook() {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter the ISBN number of the book you wish to delete:\n>");
+            for (Book book:bookList) {
+                if (sc.nextLine().equals(book.getIsbn())) {
+                    bookList.remove(book);
+                }
+            }
+        }
 
     public void showBooksInArray() {
         for (int i = 0; i < bookList.size(); i++) {
             bookList.get(i).printState();
         }
+    }
+
+    public void printBooksByAuthor() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Author name:\n>");
+        String userInput = sc.nextLine();
+        for (Book book : bookList) {
+            if (book.getAuthor().equalsIgnoreCase(userInput)) {
+                book.printState();
+            }
+        }
+    }
+
+    public void printBooksByGenre() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter desired genre:\n>");
+        String userInput = sc.nextLine();
+        for (Book book: bookList) {
+            if (book.getGenre().toString().equals(userInput)) {
+                book.printState();
+            }
+        }
+    }
+
+    public String generateISBN() {
+        Random ISBN = new Random();
+        return String.valueOf(ISBN.nextInt(10000));
     }
 
     public void addNPCBooks() {
@@ -24,14 +104,21 @@ public class BookRegister {
         Book hp4 = new Book("Harry Potter & The Goblet of Fire", "J.K. Rowling", 666, Genre.FANTASY);
 
         bookList.add(hp1);
+        hp1.setIsbn(generateISBN());
+        hp1.setMinutesPerPage(1);
         bookList.add(hp2);
+        hp2.setIsbn(generateISBN());
+        hp2.setMinutesPerPage(1);
         bookList.add(hp3);
+        hp3.setIsbn(generateISBN());
+        hp3.setMinutesPerPage(1);
         bookList.add(hp4);
+        hp4.setIsbn(generateISBN());
+        hp4.setMinutesPerPage(1);
     }
 
     public void addBook() {
         Scanner sc = new Scanner(System.in);
-
         //String title, String author, int numberOfPages, Genre genre
         System.out.print("Please add a title for your book: ");
         this.title = sc.nextLine();
@@ -42,12 +129,8 @@ public class BookRegister {
         System.out.print("Please add the book's genre (ACTION, CRIME, FANTASY, CLASSIC, OTHER): ");
         sc.nextLine();
         this.genre = Genre.valueOf(sc.nextLine());
-
-        System.out.print("Please enter a name for your book register: ");
-        bookName = sc.nextLine();
-
-        Book bookName = new Book(this.title, this.author, this.numberOfPages, this.genre);
-        bookList.add(bookName);
+        bookList.add(new Book(this.title, this.author, this.numberOfPages, this.genre));
+        bookList.get(bookList.size()-1).setIsbn(generateISBN());
     }
 
     public void getBooksInGenre() {
@@ -104,5 +187,15 @@ public class BookRegister {
                 System.out.println("Bye.");
             }
         }
+    }
+
+    public void menu() {
+        System.out.println("#1: Add book");
+        System.out.println("#2: Show all books in register");
+        System.out.println("#3: Show books by author");
+        System.out.println("#4: Show books by genre (CRIME, ACTION, FANTASY, CLASSIC, OTHER)");
+        System.out.println("#5: Show books by reading time");
+        System.out.println("#6: Remove book");
+        System.out.println("#7: Quit");
     }
 }
