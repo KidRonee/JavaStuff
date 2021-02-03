@@ -1,66 +1,50 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
+// This class takes in an adjective story (text file) and replaces "__" with a random adjective.
 public class ReadFile {
+    ArrayList<String> adjectives = new ArrayList<>();
+    Random index = new Random();
 
-    public void read() throws IOException {
-        FileReader readAdjectives = new FileReader("C:\\Users\\Mathi\\Desktop\\adjektiv.txt");
-        Scanner scanAdjectives = new Scanner(readAdjectives);
-        FileReader readStory = new FileReader("C:\\Users\\Mathi\\Desktop\\story.txt");
-        Scanner scanStory = new Scanner(readStory);
+    public ReadFile() throws IOException {
+        addAdjectivesFromFileToArraylist();
+        createAdjectiveStory();
+    }
 
-        ArrayList<String> adjectives = new ArrayList<>();
-        ArrayList<String> story = new ArrayList<>();
-
+    public void addAdjectivesFromFileToArraylist() throws IOException {
+        FileReader reader = new FileReader("C:\\Users\\Mathi\\Desktop\\adjektiv.txt");
+        Scanner scanAdjectives = new Scanner(reader);
         while (scanAdjectives.hasNextLine()) {
             adjectives.add(scanAdjectives.nextLine());
         }
-        readAdjectives.close();
+        reader.close();
+    }
 
-        Random index = new Random();
-        while(scanStory.hasNextLine()){
-            String currentLine = scanStory.nextLine();
-            String[] words = currentLine.split(" ");
-            for(String word : words){
-                if(word.equals("__")){
-                    story.add(adjectives.get(index.nextInt(adjectives.size())));
-                }
-                else {
-                    story.add(word);
-                }
-            }
-        }
-        readStory.close();
-
+    public void createAdjectiveStory() throws IOException {
+        FileReader reader = new FileReader("C:\\Users\\Mathi\\Desktop\\story.txt");
+        Scanner scanStory = new Scanner(reader);
         BufferedWriter writer = new BufferedWriter(
                 new FileWriter("C:\\Users\\Mathi\\Desktop\\modifiedStory.txt")
         );
 
-        StringBuilder storyAsStringBuilder = new StringBuilder();
-        String storyWithLineBreaks;
-        int i = 0;
-        for (String word : story) {
-            if (i < 3) {
-                storyAsStringBuilder.append(word).append(" ");
+        while(scanStory.hasNextLine()){
+            String currentLine = scanStory.nextLine();
+            String[] words = currentLine.split(" ");
+            StringBuilder sentences = new StringBuilder();
+
+            for(String word : words){
+                if(word.equals("__")){
+                    sentences.append(adjectives.get(index.nextInt(adjectives.size()))).append(" ");
+                }
+                else {
+                    sentences.append(word).append(" ");
+                }
             }
-            else if (i == 3){
-                storyAsStringBuilder.append("\n").append(word).append(" ");
-            }
-            else {
-                storyAsStringBuilder.append(word).append(" ");
-            }
-            i++;
+            writer.write(sentences + "\n");
         }
-
-        storyWithLineBreaks = String.valueOf(storyAsStringBuilder).replaceAll("(.{100})", "$1\n");
-
-        writer.write(storyWithLineBreaks);
+        reader.close();
         writer.close();
-
-
-
     }
 }
