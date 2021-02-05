@@ -5,53 +5,44 @@ import java.util.Scanner;
 
 // This class takes in an adjective story (text file) and replaces "__" with a random adjective.
 public class AdjectiveStory {
-    ArrayList<String>[] adjectives = new ArrayList[7];
-    Random index = new Random();
+    ArrayList<String> adjectives = new ArrayList<String>();
 
     public AdjectiveStory() throws IOException {
         Scanner input = new Scanner(System.in);
-        addAdjectivesFromFileToArraylist();
-        //createAdjectiveStory();
-
-        welcome();
-
+        menu();
         if (input.nextInt() == 1) {
-            menu();
-            if (input.nextInt() == 1) {
-                userMakeStory();
-            } else {
-                System.out.println("Are you sure you wish to exit? (y/n)");
-                //input.nextLine(); // controlling linefeed
-                input.nextLine(); // controlling linefeed
-                if (input.nextLine().equals("y")) {
-                    System.out.println("See you later alligator!\n\n\n\n\t See you in a while, crocodile.");
-                } else {
-                    userMakeStory();
-                }
+            welcome();
+
+            switch (input.nextInt()) {
+                case 1:
+                    addAdjectivesFromFileToArraylist();
+                    createAdjectiveStory();
+                    break;
+                case 2:
+                    addAdjectivesFromFileToArraylist();
+                    userCreateStory();
+                    break;
+                case 3:
+                    System.out.println("Catch you later alligator!");
+                    break;
+                default:
+                    System.out.println("Wrong input, exiting...");
+                    break;
             }
         } else {
-            System.out.println("#1 is your only option for now...");
+            System.out.println("See you in a while crocodile");
         }
     }
 
     public void addAdjectivesFromFileToArraylist() throws IOException {
         FileReader reader = new FileReader("C:\\Users\\Mathi\\Desktop\\adjektiv.txt");
         Scanner scanAdjectives = new Scanner(reader);
-        int i;
-        for (i = 0; i < 7; i++) {
-            adjectives[i] = new ArrayList<String>();
-        }
-        i = 0;
         while (scanAdjectives.hasNextLine()) {
-            if (adjectives[i].size() > 10) {
-                i++;
-            }
-            adjectives[i].add(scanAdjectives.nextLine());
+            adjectives.add(scanAdjectives.nextLine());
         }
         reader.close();
     }
 
-    // dont use this method, it is incomplete
     public void createAdjectiveStory() throws IOException {
         FileReader reader = new FileReader("C:\\Users\\Mathi\\Desktop\\story.txt");
         Scanner scanStory = new Scanner(reader);
@@ -61,12 +52,15 @@ public class AdjectiveStory {
 
         while(scanStory.hasNextLine()){
             int i = 0;
+
             String currentLine = scanStory.nextLine();
             String[] words = currentLine.split(" ");
             StringBuilder sentences = new StringBuilder();
             for(String word : words){
+                Random index = new Random();
+                int randomIndex = index.nextInt(adjectives.size());
                 if(word.equals("__")){
-                    sentences.append(adjectives[i].get(index.nextInt(adjectives[i].size()))).append(" "); // This does not work atm
+                    sentences.append(adjectives.get(randomIndex)).append(" "); // This does not work atm
                 }
                 else {
                     sentences.append(word).append(" ");
@@ -78,55 +72,85 @@ public class AdjectiveStory {
         writer.close();
     }
 
+    public void userCreateStory() throws IOException {
+        ArrayList<Integer> indexes = new ArrayList<Integer>();
+        FileReader reader = new FileReader("C:\\Users\\Mathi\\Desktop\\story.txt");
+        Scanner scanStory = new Scanner(reader);
+        BufferedWriter writer = new BufferedWriter(
+                new FileWriter("C:\\Users\\Mathi\\Desktop\\modifiedStory.txt")
+        );
+
+        while(scanStory.hasNextLine()){
+            int i = 0;
+            Scanner input = new Scanner(System.in);
+            String currentLine = scanStory.nextLine();
+            String[] words = currentLine.split(" ");
+            StringBuilder sentences = new StringBuilder();
+            for(String word : words){
+                Random index = new Random();
+                if(word.equals("__")){
+                    System.out.println("Please select a number from the list below to replace '__'");
+                    for (i = 0; i <= 10; i++) {
+                        int randomIndex = index.nextInt(adjectives.size());
+                        System.out.println("#" + i + " " + adjectives.get(randomIndex));
+                        indexes.add(randomIndex);
+                    }
+                    System.out.println(currentLine);
+                    switch (input.nextInt()) {
+                        case 1:
+                            sentences.append(adjectives.get(indexes.get(0))).append(" ");
+                            break;
+                        case 2:
+                            sentences.append(adjectives.get(indexes.get(1))).append(" ");
+                            break;
+                        case 3:
+                            sentences.append(adjectives.get(indexes.get(2))).append(" ");
+                            break;
+                        case 4:
+                            sentences.append(adjectives.get(indexes.get(3))).append(" ");
+                            break;
+                        case 5:
+                            sentences.append(adjectives.get(indexes.get(4))).append(" ");
+                            break;
+                        case 6:
+                            sentences.append(adjectives.get(indexes.get(5))).append(" ");
+                            break;
+                        case 7:
+                            sentences.append(adjectives.get(indexes.get(6))).append(" ");
+                            break;
+                        case 8:
+                            sentences.append(adjectives.get(indexes.get(7))).append(" ");
+                            break;
+                        case 9:
+                            sentences.append(adjectives.get(indexes.get(8))).append(" ");
+                            break;
+                        case 10:
+                            sentences.append(adjectives.get(indexes.get(9))).append(" ");
+                            break;
+                        default:
+                            System.out.println("invalid number...");
+                    }
+                }
+                else {
+                    sentences.append(word).append(" ");
+                }
+                indexes = new ArrayList<Integer>();
+            }
+            writer.write(sentences + "\n");
+        }
+        reader.close();
+        writer.close();
+    }
+
+
+
+
     public String createTextFile() {
         Scanner input = new Scanner(System.in);
         return input.nextLine() + ".txt";
     }
 
-    public void userMakeStory() throws IOException {
-        FileReader reader = new FileReader("C:\\Users\\Mathi\\Desktop\\story.txt");
-        Scanner scanStory = new Scanner(reader);
-        Scanner input = new Scanner(System.in);
-        ArrayList<String> userAdjectives = new ArrayList<>();
-        StringBuilder badName = new StringBuilder();
-        int i = 0;
-        int j = 0;
-        int k = 0;
-        System.out.print("Select an adjective to replace '__'");
-        while(scanStory.hasNextLine()){
-            if (k > 7) {
-                k = 0;
-            }
-            for (String adjective : adjectives[k]) {
-                if (i % 3 == 0) {
-                    System.out.print("\n");
-                }
-                System.out.print("#" + i + " " + adjective + " | ");
-                i++;
-            }
-            System.out.println("\n" +scanStory.nextLine());
-            System.out.print(">");
-            int userChoice = input.nextInt();
-            userAdjectives.add(adjectives[k].get(userChoice));
-            adjectives[k].remove(userAdjectives.get(j));
-            j++;
-            k++;
-            String currentLine = scanStory.nextLine();
-            String[] words = currentLine.split(" ");
-            StringBuilder sentences = new StringBuilder();
-            i = 0;
-            for(String word : words){
-                if(word.equals("__")){
-                    sentences.append(userAdjectives.get(i)).append(" ");
-                    i++;
-                }
-                else {
-                    sentences.append(word).append(" ");
-                }
-            }
-            badName.append(sentences).append("\n");
-        }
-        reader.close();
+        /*
         System.out.print("Please select a name for your file (i'll take care of the file type (:\n>");
         String fileName = createTextFile();
         String fileLocation = "C:\\Users\\Mathi\\Desktop\\" + fileName + ".txt";
@@ -136,15 +160,15 @@ public class AdjectiveStory {
         System.out.println(badName);
         writer.write(String.valueOf(badName));
         writer.close();
-    }
 
-
+         */
 
     public void welcome() {
         System.out.println("Welcome to storyBuilder.v1");
         System.out.println("This program is designed to allow its users to build an adjective story.");
-        System.out.println("Enter #1 to pick a random story.");
-        System.out.print("Enter #2 to make your own story (coming soon).\n>");
+        System.out.println("#1 to generate story.");
+        System.out.println("#2 to make your own story.");
+        System.out.print("#3 to exit.\n>");
     }
 
     public void menu() {
