@@ -5,13 +5,13 @@ public class Shape {
     boolean filled;
 
     public Shape() {
-        this.color = Color.red;
+        this.color = Color.RED;
+        this.filled = true;
     }
 
     public Shape(Color color, boolean filled) {
         this.color = color;
         this.filled = filled;
-
     }
 
     public void printState() {
