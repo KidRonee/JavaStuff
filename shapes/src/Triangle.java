@@ -1,34 +1,27 @@
 import java.awt.*;
 
 public class Triangle extends Shape {
-    double width;
-    double height;
+    private double width;
+    private double height;
 
 
-    public Triangle () {
+    public Triangle (int id) {
+        super(id);
         this.width = 2;
         this.height = 3;
-        setColor(Color.BLUE);
-        setFilled(true);
     }
 
-    public Triangle(double width, double height) {
+    public Triangle(int id, double width, double height) {
+        super(id, Color.GREEN, true );
         this.width = width;
         this. height = height;
-        setColor(Color.BLUE);
-        setFilled(true);
     }
 
-    public Triangle(double width, double height, Color color, boolean filled) {
+    public Triangle(int id, double width, double height, Color color, boolean filled) {
+        super(id, color, filled);
         this.width = width;
         this.height = height;
-        this.color = color;
-        this.filled = filled;
-    }
 
-    public void printState() {
-        System.out.println("Area: " + getArea() + "\nPerimeter: " + getPerimeter()
-                + "\nColor: " + getColor() + "\nIs filled: " + isFilled());
     }
 
     public double getArea() {
@@ -53,5 +46,9 @@ public class Triangle extends Shape {
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    public String toString() {
+        return "A Triangle with width = " + width + " and height = " + height + ", which is a subclass of " + super.toString();
     }
 }

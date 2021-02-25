@@ -1,40 +1,40 @@
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
+        Program test = new Program();
+
         /*
-        Shape shape = new Shape();
-        shape.setColor(Color.pink);
-        Rectangle rect = new Rectangle();
-        rect.setLength(10);
-        rect.setWidth(20);
-        rect.setFilled(true);
-        rect.printState();
+        test.checkCircles();
+        test.checkSquares();
+        test.checkRectangles();
+        test.printHashMapContentUsingToString();
+        test.printHashMapUsingForEachLoop();
+        test.printHashMapElement(7);
+
          */
-        for (int x = 0; x < 6; x++) {
-            for (int y = 0; y < 6; y++) {
-                if (x == y) {
-                    System.out.print("|||");
+        //test.gfg();
+        test.addSamples();
+        System.out.println(test.printBigShapes(300));
+
+        String arr [][] = new String[10][8];
+        for (int row = 0; row < arr.length; row++) {
+            for (int col = 0; col < arr[row].length; col++) {
+                if(((row == 8 || row == 7) && (col >= 2 && col <=5)|| (col == 3 ||col == 4) && row >= 1 && row < 7) || (row == 1 || row == 2) && col == 2) {
+                    arr[row][col] = "X  ";
+                } else {
+                    arr[row][col] = "   ";
                 }
-                if (x == 1 && y == 5) {
-                    System.out.println("|||");
-                }
-                if (x == 2 && y == 4) {
-                    System.out.println("|||");
-                }
-                if (x == 4 && y == 2) {
-                    System.out.println("|||");
-                }
-                if (x == 5 && y == 1) {
-                    System.out.println("|||");
-                }
-                else {
-                    System.out.println("---");
-                }
+
+                System.out.print(arr[row][col]);
             }
             System.out.println();
         }
 
 
+        //System.out.println(Arrays.deepToString(arr));
+        //System.out.println(test.bigShapes);
     }
-}
+} 

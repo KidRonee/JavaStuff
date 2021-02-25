@@ -1,24 +1,25 @@
 import java.awt.*;
 
 public class Circle extends Shape {
-    double radius;
+    private double radius;
 
-    public Circle() {
+    public Circle(int id) {
+        super(id);
         this.radius = 1.0;
     }
 
-    public Circle(double radius) {
+    public Circle(int id, double radius) {
+        super(id);
         this.radius = radius;
     }
 
-    public Circle(Color  color, boolean filled, double radius) {
-        this.color = color;
-        this.filled = filled;
+    public Circle(int id, double radius, Color  color, boolean filled) {
+        super(id, color, filled);
         this.radius = radius;
     }
 
-    public void printState() {
-        System.out.println("Color:" + getColor() + "\nIs filled: " + isFilled() + "\nRadius: " +getRadius());
+    public String toString() {
+        return String.format("A circle with radius = %s, which is a subclass of %s", radius, super.toString());
     }
 
     public double getArea() {

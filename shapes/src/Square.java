@@ -1,44 +1,29 @@
 import java.awt.*;
 
-public class Square extends Shape{
-    double side;
+public class Square extends Rectangle{
 
-    public Square() {
-        this.side = 1.0;
-        color = Color.GREEN;
-        setFilled(true);
+    public Square(int id) {
+        super(id, 1.0, 1.0);
     }
 
-    public Square(double side) {
-        this.side = side;
-        color = Color.GREEN;
-        setFilled(true);
+    public Square(int id, double side) {
+        super(id, side, side);
     }
 
-    public Square(double side, Color color, boolean filled) {
-        this.side = side;
-        this.color = color;
-        this.filled = filled;
-    }
-
-    public double getArea() {
-        return side*side;
-    }
-
-    public double getPerimeter() {
-        return side + side + side + side;
-    }
-
-    public double getLength() {
-        return side;
+    public Square(int id, double side, Color color, boolean filled) {
+        super(id, side, side, color, filled);
     }
 
     public void setSide(double side) {
-        this.side = side;
+        super.setLength(side);
+        super.setWidth(side);
     }
 
-    public void printState() {
-        System.out.println("Area: " + getArea() + "\nPerimeter: " + getPerimeter()
-        );
+    public double getSide() {
+        return super.getLength();
+    }
+
+    public String toString() {
+        return "A square with side = " + this.getSide() + ", which is a subclass of " + super.toString();
     }
 }

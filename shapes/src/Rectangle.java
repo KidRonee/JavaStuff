@@ -1,28 +1,26 @@
 import java.awt.*;
+import java.util.HashMap;
 
 public class Rectangle extends Shape {
-    double width;
-    double length;
+    private double width;
+    private double length;
 
-    public Rectangle() {
+    public Rectangle(int id) {
+        super(id);
         this.width = 1.0;
         this.length = 2.0;
-        setColor(Color.GREEN);
-        setFilled(true);
     }
 
-    public Rectangle(double width, double length) {
+    public Rectangle(int id, double width, double length) {
+        super(id, Color.GREEN, true);
         this.width = width;
         this.length = length;
-        setFilled(true);
-        setColor(Color.GREEN);
     }
 
-    public Rectangle(double width, double length, Color color, boolean filled) {
+    public Rectangle(int id, double width, double length, Color color, boolean filled) {
+        super(id, color, true);
         this.width = width;
         this.length = length;
-        this.color = color;
-        this.filled = filled;
     }
 
     public void printState() {
@@ -52,5 +50,9 @@ public class Rectangle extends Shape {
 
     public void setLength(double length) {
         this.length = length;
+    }
+
+    public String toString() {
+        return "A Rectangle with width = " + width + " and length = " + length + ", which is a subclass of " + super.toString();
     }
 }
