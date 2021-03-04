@@ -1,14 +1,10 @@
 import java.awt.*;
 
-public abstract class Shape {
+public abstract class Shape implements Movable {
 
     private Color color;
     private boolean filled;
 
-    /*
-        Let's have only one constructor. We require that all fields are populated through constructor.
-        We now have no alternative options when creating a shape object.
-     */
     public Shape(Color color, boolean filled){
         this.color=color;
         this.filled=filled;

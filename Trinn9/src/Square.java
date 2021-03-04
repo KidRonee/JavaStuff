@@ -7,8 +7,12 @@ public class Square extends Rectangle {
         We now have no alternative options when creating a square object.
         Notice how we use side as both width and length when we call the parent constructor.
      */
-    public Square(double side, Color color, boolean filled) {
-        super(side, side, color, filled);
+    public Square(double side, Color color, boolean filled, MovablePoint topLeft, MovablePoint bottomRight) {
+        super(side, side, color, filled, topLeft, bottomRight);
+    }
+
+    public void uniqueSquareMethod() {
+        System.out.println("Hello, I'm Square!");
     }
 
     // Getter for side
@@ -24,13 +28,6 @@ public class Square extends Rectangle {
     }
 
     // Setter for side
-    public void setSide(double side){
-        /*
-            Notice how we set both length and width inherited from Rectangle.
-         */
-        super.setLength(side);
-        super.setWidth(side);
-    }
 
     /*
         We override a method from the Object class.
@@ -39,7 +36,7 @@ public class Square extends Rectangle {
         inherited from Object provides little information.
      */
     public String toString(){
-        return "A Square with side = " + this.getSide() +", which is a subclass of " + super.toString();
+        return "A Square with side = " + this.getSide() + ", which is a subclass of " + super.toString();
     }
 
     /*

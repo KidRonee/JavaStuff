@@ -1,18 +1,32 @@
 import java.awt.*;
 
 public class Rectangle extends Shape {
-
     private double width;
     private double length;
+    private MovablePoint topLeft;
+    private MovablePoint bottomRight;
 
     /*
         Let's have only one constructor. We require that all fields are populated through constructor.
         We now have no alternative options when creating a rectangle object.
      */
-    Rectangle(double width, double length, Color color, boolean filled) {
+    Rectangle(double width, double length, Color color, boolean filled, MovablePoint topLeft, MovablePoint bottomRight) {
         super(color, filled);
+        if(topLeft.getX() > bottomRight.getX() || topLeft.getY() < bottomRight.getY()) {
+            throw new IllegalArgumentException("Invalid position(s)");
+        }
+        if (bottomRight.getX() - topLeft.getX() != width) {
+            throw new IllegalArgumentException("Width and position doesn't match");
+        }
+        if (topLeft.getY() - bottomRight.getY() != length) {
+            throw new IllegalArgumentException("Length and position doesn't match");
+        }
+
         this.width = width;
         this.length = length;
+        this.topLeft = topLeft;
+        this.bottomRight = bottomRight;
+
     }
 
     // Getter for width
@@ -20,20 +34,13 @@ public class Rectangle extends Shape {
         return width;
     }
 
-    // Setter for width
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
     // Getter for length
     public double getLength() {
         return length;
     }
 
-    // Setter for length
-    public void setLength(double length) {
-        this.length = length;
-    }
+
+
 
     /*
         We override the abstract method getArea in Shape.
@@ -53,15 +60,68 @@ public class Rectangle extends Shape {
         return 2 * (length + width);
     }
 
-    /*
-        We override a method from the Object class.
-        Remember that all classes inherit from the Object class.
-        It is normal to override this method as the method
-        inherited from Object provides little information.
-     */
+    public MovablePoint getTopLeft() {
+        return topLeft;
+    }
+
+    public void setTopLeft(MovablePoint topLeft) {
+        if(topLeft.getX() > this.bottomRight.getX() || topLeft.getY() < this.bottomRight.getY()) {
+            throw new IllegalArgumentException("Invalid position(s)");
+        }
+
+        this.length = topLeft.getY() - bottomRight.getY();
+        this.width = bottomRight.getX() - topLeft.getX();
+        this.topLeft = topLeft;
+    }
+
+    public MovablePoint getBottomRight() {
+        return bottomRight;
+    }
+
+    public void setBottomRight(MovablePoint bottomRight) {
+        if(this.topLeft.getX() > bottomRight.getX() || this.topLeft.getY() < bottomRight.getY()) {
+            throw new IllegalArgumentException("Invalid position(s)");
+        }
+
+        this.length = topLeft.getY() - bottomRight.getY();
+        this.width = bottomRight.getX() - topLeft.getX();
+        this.bottomRight = bottomRight;
+    }
+
     public String toString() {
         return "A Rectangle with width = " + width + " and length = " +
-                length + ", which is a subclass of " + super.toString();
+                length + "\nwhich is a subclass of " + super.toString() + "\nThe Rectangle has its top-left corner at:\n" + topLeft.toString() + "\nThe Rectangle has its bottom-right corner at:\n" + bottomRight.toString();
     }
+
+
+    public void uniqueRectangleMethod() {
+        System.out.println("Hello, I'm Rectangle!");
+    }
+
+
+    @Override
+    public void moveUp(double distance) {
+        topLeft.moveUp(distance);
+        bottomRight.moveUp(distance);
+    }
+
+    @Override
+    public void moveDown(double distance) {
+        topLeft.moveDown(distance);
+        bottomRight.moveDown(distance);
+    }
+
+    @Override
+    public void moveRight(double distance) {
+        topLeft.moveRight(distance);
+        bottomRight.moveRight(distance);
+    }
+
+    @Override
+    public void moveLeft(double distance) {
+        topLeft.moveLeft(distance);
+        bottomRight.moveLeft(distance);
+    }
+
 
 }
