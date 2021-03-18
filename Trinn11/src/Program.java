@@ -7,18 +7,77 @@ import java.util.Scanner;
 
 public class Program {
 
-    public Program() throws IOException {
-        readShapesFromFile();
-        createShapesFromArrayList();
-        printActualArray();
-    }
-
+    boolean exit;
     ArrayList<String> shapes = new ArrayList<String>();
     ArrayList<Shape> actualShapes = new ArrayList<Shape>();
 
-    public void dummyMethod(){
-        Circle circle = new Circle(2, Color.DARK_GRAY, false, new MovablePoint(0.0, 0.0));
-        System.out.println(circle);
+    public Program() throws IOException {
+        readShapesFromFile();
+        createShapesFromArrayList();
+        banner();
+        while (!exit) {
+            getInput();
+        }
+        //printActualArray();
+
+    }
+
+    public void printMenu() {
+        System.out.println("Press 1 to print all shapes.");
+        System.out.println("Press 2 to get the total area of all the squares.");
+        System.out.println("Press 3 to add a new shape (circle, square or rectangle).");
+        System.out.println("Press 4 to exit!");
+    }
+
+    public void banner () {
+        System.out.println("+---------------------------------------------------------------------+");
+        System.out.println("|                    |___________________________|                    |");
+        System.out.println("|                    |===========================|                    |");
+        System.out.println("|                    |===========================|                    |");
+        System.out.println("|     |=========================================================|     |");
+        System.out.println("|  |===============================================================|  |");
+        System.out.println("|         (         (         (         )         )         )         |");
+        System.out.println("|        (         (         (           )         )         )        |");
+        System.out.println("|       (  ====   (  ====   ( ====   ==== )    ==== )    ==== )       |");
+        System.out.println("|        (      #  (      #  (     #     )    #    )    #    )        |");
+        System.out.println("|         (         (         (         )         )         )         |");
+        System.out.println("|          (_________(_________(_______)_________)_________)          |");
+        System.out.println("|                                                                     |");
+        System.out.println("+---------------------------------------------------------------------+");
+
+    }
+
+    private void getInput() {
+        int choice = -1;
+        Scanner sc = new Scanner(System.in);
+        while (choice < 0 || choice > 4) {
+            try {
+                printMenu();
+                System.out.print("\nEnter a number:\n>");
+                choice = Integer.parseInt(sc.nextLine());
+                switch (choice) {
+                    case 1:
+                        printActualArray();
+                        break;
+                    case 2:
+                        sumAreaOfSquaresInShapeArrayList();
+                        break;
+                    case 3:
+                        System.out.println("This function is not yet available.");
+                        break;
+                    case 4:
+                        System.out.println("Good bye!");
+                        exit = true;
+                        break;
+                    default:
+                        System.out.println("Enter a valid option");
+                        break;
+                }
+            }
+            catch (NumberFormatException e) {
+                System.out.println("Invalid exception, please enter a valid number!");
+            }
+        }
     }
 
     public void readShapesFromFile() throws IOException {
@@ -53,11 +112,18 @@ public class Program {
     }
 
     public void printActualArray() {
-        for (Shape shape: actualShapes
-             ) {
-            System.out.println("----------------------------------------------------------------------------------------");
+        for (Shape shape: actualShapes) {
             System.out.println(shape.toString());
+            System.out.println("----------------------------------------------------------------------------------------");
         }
+    }
+
+    public void sumAreaOfSquaresInShapeArrayList() {
+        int i = 0;
+        for (Shape square : actualShapes) {
+            i += square.getArea();
+        }
+        System.out.println(i);
     }
 
 
