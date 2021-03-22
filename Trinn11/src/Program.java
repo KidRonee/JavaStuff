@@ -3,10 +3,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Program {
-
     boolean exit;
     ArrayList<String> shapes = new ArrayList<String>();
     ArrayList<Shape> actualShapes = new ArrayList<Shape>();
@@ -31,20 +31,16 @@ public class Program {
 
     public void banner () {
         System.out.println("+---------------------------------------------------------------------+");
-        System.out.println("|                    |___________________________|                    |");
-        System.out.println("|                    |===========================|                    |");
-        System.out.println("|                    |===========================|                    |");
-        System.out.println("|     |=========================================================|     |");
-        System.out.println("|  |===============================================================|  |");
+        System.out.println("|                                                                     |");
+        System.out.println("|          _________________________________________________          |");
         System.out.println("|         (         (         (         )         )         )         |");
         System.out.println("|        (         (         (           )         )         )        |");
         System.out.println("|       (  ====   (  ====   ( ====   ==== )    ==== )    ==== )       |");
-        System.out.println("|        (      #  (      #  (     #     )    #    )    #    )        |");
+        System.out.println("|        (      .  (      .  (     ..     )    .    )    .    )        |");
         System.out.println("|         (         (         (         )         )         )         |");
         System.out.println("|          (_________(_________(_______)_________)_________)          |");
         System.out.println("|                                                                     |");
         System.out.println("+---------------------------------------------------------------------+");
-
     }
 
     private void getInput() {
@@ -63,7 +59,7 @@ public class Program {
                         sumAreaOfSquaresInShapeArrayList();
                         break;
                     case 3:
-                        System.out.println("This function is not yet available.");
+                        userCreateShape();
                         break;
                     case 4:
                         System.out.println("Good bye!");
@@ -126,21 +122,151 @@ public class Program {
         System.out.println(i);
     }
 
-
-    /*
-    while(!scanShapes.nextLine().equals("Rectangle") || !scanShapes.nextLine().equals("Square") || !scanShapes.nextLine().equals("Circle")) {
-                    while(scanShapes.hasNextLine()) {
-                        String name = scanShapes.nextLine();
-                        radius = Double.parseDouble(scanShapes.nextLine());
-                        color = new Color(Integer.parseInt(scanShapes.nextLine()), Integer.parseInt(scanShapes.nextLine()), Integer.parseInt(scanShapes.nextLine()));
-                        filled = Boolean.parseBoolean(scanShapes.nextLine());
-                        center = new MovablePoint(Double.parseDouble(scanShapes.nextLine()), Double.parseDouble(scanShapes.nextLine()));
-                    }
-                }
-                shapeInfo.add(new Circle(radius, color, filled, center));
-     */
-
     public void printArray() {
         System.out.println(shapes);
+    }
+
+    public void getCircleMeasuresFromUser() {
+        double radius;
+        double x;
+        double y;
+        Color color;
+        String stringColor;
+        boolean filled = false;
+        MovablePoint center;
+
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter radius:\n>");
+        radius = input.nextInt();
+        System.out.print("Enter a color:\n>");
+        input.next(); // reactivates input
+        stringColor = input.nextLine().toUpperCase();
+        color = Color.getColor(stringColor);
+        System.out.print("Enter true or false for filled:\n>");
+        switch (input.nextLine().toLowerCase()) {
+            case "true":
+                filled  = true;
+                break;
+            case "False":
+                filled  = false;
+                break;
+            default:
+                System.out.println("Enter true or false");
+        }
+        System.out.print("Enter the circle's x position:\n>");
+        x = input.nextInt();
+        System.out.print("Enter the circle's y position:\n>");
+        y = input.nextInt();
+        center = new MovablePoint(x, y);
+        actualShapes.add(new Circle(radius, color, filled, center));
+    }
+
+    public void getRectangleMeasuresFromUser() {
+        double width;
+        double length;
+        double topX;
+        double topY;
+        double bottomX;
+        double bottomY;
+        Color color;
+        boolean filled = false;
+        MovablePoint topLeft;
+        MovablePoint bottomRight;
+        String stringColor;
+
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a width:\n>");
+        width = input.nextInt();
+        System.out.print("Enter a length:\n>");
+        length = input.nextInt();
+        System.out.print("Enter a color:\n>");
+        input.next(); // reactivates input
+        stringColor = input.nextLine().toUpperCase();
+        color = Color.getColor(stringColor);
+        System.out.print("Enter true or false for filled:\n>");
+        switch (input.nextLine().toLowerCase()) {
+            case "true":
+                filled = true;
+                break;
+            case "False":
+                filled = false;
+                break;
+            default:
+                System.out.println("Enter true or false");
+        }
+        System.out.print("Enter the Rectangle's top x position:\n>");
+        topX = input.nextInt();
+        System.out.print("Enter the Rectangle's top y position:\n>");
+        topY = input.nextInt();
+        System.out.print("Enter the Rectangle's bottom x position:\n>");
+        bottomX = input.nextInt();
+        System.out.print("Enter the Rectangle's bottom y position:\n>");
+        bottomY = input.nextInt();
+        topLeft = new MovablePoint(topX, topY);
+        bottomRight = new MovablePoint(bottomX, bottomY);
+        actualShapes.add(new Rectangle(width, length, color, filled, topLeft, bottomRight));
+    }
+
+    public void getSquareMeasuresFromUser() {
+        double side;
+        double topX;
+        double topY;
+        double bottomX;
+        double bottomY;
+        Color color;
+        boolean filled = false;
+        MovablePoint topLeft;
+        MovablePoint bottomRight;
+        String stringColor;
+
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a width:\n>");
+        side = input.nextInt();
+        System.out.print("Enter a color:\n>");
+        input.next(); // reactivates input
+        stringColor = input.nextLine().toUpperCase();
+        color = Color.getColor(stringColor);
+        System.out.print("Enter true or false for filled:\n>");
+        switch (input.nextLine().toLowerCase()) {
+            case "true":
+                filled = true;
+                break;
+            case "False":
+                filled = false;
+                break;
+            default:
+                System.out.println("Enter true or false");
+        }
+        System.out.print("Enter the Rectangle's top x position:\n>");
+        topX = input.nextInt();
+        System.out.print("Enter the Rectangle's top y position:\n>");
+        topY = input.nextInt();
+        System.out.print("Enter the Rectangle's bottom x position:\n>");
+        bottomX = input.nextInt();
+        System.out.print("Enter the Rectangle's bottom y position:\n>");
+        bottomY = input.nextInt();
+        topLeft = new MovablePoint(topX, topY);
+        bottomRight = new MovablePoint(bottomX, bottomY);
+        actualShapes.add(new Square(side, color, filled, topLeft, bottomRight));
+    }
+
+
+        public void userCreateShape() {
+        System.out.println("What shape would you like to create?\nCircle\nRectangle\nSquare");
+        Scanner input = new Scanner(System.in);
+        switch (input.nextLine().toLowerCase()) {
+            case "circle":
+                getCircleMeasuresFromUser();
+                break;
+            case "rectangle":
+                getRectangleMeasuresFromUser();
+                break;
+            case "square":
+                getSquareMeasuresFromUser();
+                break;
+            default:
+                System.out.println("Enter a shape from the list above.");
+
+        }
     }
 }
