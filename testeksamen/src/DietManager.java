@@ -3,15 +3,15 @@ import java.util.Random;
 
 public class DietManager {
 
-     public Boolean areCompatible(Person person, Diet diet) {
+     public boolean areCompatible(Person person, Diet diet) {
+          boolean b = true;
           if (!person.getFavoriteFood().isVegan() && diet instanceof VeganDiet) {
                System.out.println("This person's favorite food is non-vegan and can therefore not follow a vegan diet!");
-               return false;
+               b = false;
           }
           new Person(person.getFavoriteFood(), person.getAllergies(), person.getWeight()).setDiet(diet);
           System.out.println("This person is compatible with this diet");
-          return true;
-
+          return b;
      }
 
      public  HypercaloricDiet randomDiet(Person person, ArrayList<Food> foodList) {
@@ -33,9 +33,9 @@ public class DietManager {
           }
           HypercaloricDiet hcd;
           if (counter == 0)
-               hcd = new HypercaloricDiet(50, "Random diet", foodList, true, (float) (randomCalories.nextInt(calMax-calMin) + calMin), (float) person.getWeight() + randomWeight.nextInt(weightMax-weightMin) + weightMin);
+               hcd = new HypercaloricDiet(50, "Random diet", foodList, true, (float) (randomCalories.nextInt(calMax-calMin) + calMin), person.getWeight() + randomWeight.nextInt(weightMax-weightMin) + weightMin);
           else
-               hcd = new HypercaloricDiet(50, "Random diet", foodList, false, (float) (randomCalories.nextInt(calMax-calMin) + calMin), (float) person.getWeight() + randomWeight.nextInt(weightMax-weightMin) + weightMin);
+               hcd = new HypercaloricDiet(50, "Random diet", foodList, false, (float) (randomCalories.nextInt(calMax-calMin) + calMin), person.getWeight() + randomWeight.nextInt(weightMax-weightMin) + weightMin);
           person.setDiet(hcd);
           return hcd;
      }

@@ -17,20 +17,12 @@ public abstract class Diet {
     public abstract String writeAllowedFood();
 
     public boolean checkIfVegan(){
-        int veganCount = 0;
-        if (isVegan){
-            for (Food food : allowedFood) {
-                if (!food.isVegan())
-                    return false;
-            }
+        boolean isVegan = true;
+        for (Food food : allowedFood) {
+            if (!food.isVegan())
+                isVegan = false;
         }
-        for (Food food: allowedFood) {
-            if(!food.isVegan())
-                veganCount++;
-        }
-        if (veganCount == 0)
-            return true;
-        return false;
+        return isVegan;
     }
 
     public int getDaysDuration() {
@@ -68,9 +60,9 @@ public abstract class Diet {
     public String printAllowedFood() {
         StringBuilder foods = new StringBuilder();
         for (Food food: allowedFood) {
-            if(allowedFood.indexOf(food) == allowedFood.size()-1) {
+            if(allowedFood.indexOf(food) == allowedFood.size()-1)
                 foods.append(food.getName());
-            } else
+            else
                 foods.append(food.getName()).append("\n");
         }
         return String.format("%s", foods);
