@@ -30,9 +30,11 @@ public class Main {
     public static void main (String[] args) {
         Main test = new Main();
         ArrayList<Integer> numbers = new ArrayList<>();
-        for (int i = 0; i <= 1000000; i++) {
+        for (int i = 0; i <= 100; i++) {
             numbers.add(i);
         }
         System.out.println(test.onlyPrimes(numbers));
+        int a  = 5;
+        System.out.println(a);
     }
 }

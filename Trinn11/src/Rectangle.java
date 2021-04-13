@@ -10,7 +10,7 @@ public class Rectangle extends Shape {
     Rectangle(double width, double length, Color color, boolean filled, MovablePoint topLeft, MovablePoint bottomRight) {
         super(color, filled);
 
-        /*
+        // throws error if the points of the rectangle are illogical
         if(topLeft.getX() > bottomRight.getX() || topLeft.getY() < bottomRight.getY()) {
             throw new IllegalArgumentException("Invalid position(s)");
         }
@@ -20,7 +20,6 @@ public class Rectangle extends Shape {
         if (topLeft.getY() - bottomRight.getY() != length) {
             throw new IllegalArgumentException("Length and position doesn't match");
         }
-         */
 
         this.width = width;
         this.length = length;
