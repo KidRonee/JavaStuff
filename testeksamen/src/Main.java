@@ -27,5 +27,8 @@ public class Main {
         //p2.setDiet(dietManager.randomDiet(p2, foodList));
         //System.out.println(p2.diet.isVegan);
         System.out.println(hypercaloricDiet.daysDuration);
+        float maxWeightKg = (float) Math.random()*80+21+ 80f;
+        float minCalories = (float) (Math.floor(Math.random()*2001)+2000);
+        System.out.println(Math.round(maxWeightKg));
     }
 }

@@ -36,7 +36,6 @@ public class DietManager {
                hcd = new HypercaloricDiet(50, "Random diet", foodList, true, (float) (randomCalories.nextInt(calMax-calMin) + calMin), person.getWeight() + randomWeight.nextInt(weightMax-weightMin) + weightMin);
           else
                hcd = new HypercaloricDiet(50, "Random diet", foodList, false, (float) (randomCalories.nextInt(calMax-calMin) + calMin), person.getWeight() + randomWeight.nextInt(weightMax-weightMin) + weightMin);
-          person.setDiet(hcd);
           return hcd;
      }
 }
