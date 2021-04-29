@@ -39,9 +39,6 @@ public class Rectangle extends Shape {
         return length;
     }
 
-
-
-
     /*
         We override the abstract method getArea in Shape.
         If we do not do this, this class (Rectangle) must be abstract as we are missing
