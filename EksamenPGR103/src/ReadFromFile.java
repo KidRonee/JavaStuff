@@ -13,6 +13,8 @@ public class ReadFromFile {
     public ReadFromFile() throws IOException {
         readEquipmentsFromFile();
         makeEquipmentObjectsFromList();
+
+        /*metoden under er en kombinasjon av de to over*/
         //readFromFileAndMakeObjects();
     }
 
@@ -37,19 +39,21 @@ public class ReadFromFile {
         for(int i  = 0; i < equipmentInfoList.size(); i++) {
             switch(equipmentInfoList.get(i)) {
                 case ball:
-                    equipments.add
-                            (new Ball(Integer.parseInt(equipmentInfoList.get(i+1)),
+                    equipments.add(new Ball(
+                                    Integer.parseInt(equipmentInfoList.get(i+1)),
                                     equipmentInfoList.get(i+2),
                                     Boolean.parseBoolean(equipmentInfoList.get(i+3)),
                                     equipmentInfoList.get(i+4),
-                                    Boolean.parseBoolean(equipmentInfoList.get(i+5))));
+                                    Boolean.parseBoolean(equipmentInfoList.get(i+5)))
+                                    );
                     break;
                 case tableTennisRacket:
-                    equipments.add
-                            (new TableTennisRacket(Integer.parseInt(equipmentInfoList.get(i+1)),
+                    equipments.add(new TableTennisRacket(
+                                    Integer.parseInt(equipmentInfoList.get(i+1)),
                                     equipmentInfoList.get(i+2),
                                     Boolean.parseBoolean(equipmentInfoList.get(i+3)),
-                                    Boolean.parseBoolean(equipmentInfoList.get(i+4))));
+                                    Boolean.parseBoolean(equipmentInfoList.get(i+4)))
+                                    );
                     break;
                 default:
                     break;
@@ -74,19 +78,21 @@ public class ReadFromFile {
         for(int i  = 0; i < equipmentInfoList.size(); i++) {
             switch(equipmentInfoList.get(i)) {
                 case ball:
-                    equipments.add
-                            (new Ball(Integer.parseInt(equipmentInfoList.get(i+1)),
+                    equipments.add(new Ball(
+                                    Integer.parseInt(equipmentInfoList.get(i+1)),
                                     equipmentInfoList.get(i+2),
                                     Boolean.parseBoolean(equipmentInfoList.get(i+3)),
                                     equipmentInfoList.get(i+4),
-                                    Boolean.parseBoolean(equipmentInfoList.get(i+5))));
+                                    Boolean.parseBoolean(equipmentInfoList.get(i+5)))
+                                    );
                     break;
                 case tableTennisRacket:
-                    equipments.add
-                            (new TableTennisRacket(Integer.parseInt(equipmentInfoList.get(i+1)),
+                    equipments.add(new TableTennisRacket(
+                                    Integer.parseInt(equipmentInfoList.get(i+1)),
                                     equipmentInfoList.get(i+2),
                                     Boolean.parseBoolean(equipmentInfoList.get(i+3)),
-                                    Boolean.parseBoolean(equipmentInfoList.get(i+4))));
+                                    Boolean.parseBoolean(equipmentInfoList.get(i+4)))
+                                    );
                     break;
                 default:
                     break;
@@ -101,6 +107,4 @@ public class ReadFromFile {
             System.out.println("----------------------------------------");
         }
     }
-
-
 }
