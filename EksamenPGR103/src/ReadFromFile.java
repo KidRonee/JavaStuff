@@ -12,11 +12,13 @@ public class ReadFromFile {
 
     public ReadFromFile() throws IOException {
         readEquipmentsFromFile();
-        makeEquipmentObjectFromList();
-        //printEquipments();
+        makeEquipmentObjectsFromList();
+        //readFromFileAndMakeObjects();
     }
 
-    public void readEquipmentsFromFile() throws IOException {
+
+
+    public ArrayList<String> readEquipmentsFromFile() throws IOException {
         equipmentInfoList = new ArrayList<>();
         reader = new BufferedReader(new FileReader("resources\\equipment.txt"));
         sc = new Scanner(reader);
@@ -24,9 +26,47 @@ public class ReadFromFile {
             equipmentInfoList.add(sc.nextLine());
         }
         reader.close();
+        return equipmentInfoList;
     }
 
-    public ArrayList<Equipment> makeEquipmentObjectFromList() {
+    public ArrayList<Equipment> makeEquipmentObjectsFromList() {
+        equipments = new ArrayList<>();
+        final String ball = "Ball";
+        final String tableTennisRacket = "TableTennisRacket";
+
+        for(int i  = 0; i < equipmentInfoList.size(); i++) {
+            switch(equipmentInfoList.get(i)) {
+                case ball:
+                    equipments.add
+                            (new Ball(Integer.parseInt(equipmentInfoList.get(i+1)),
+                                    equipmentInfoList.get(i+2),
+                                    Boolean.parseBoolean(equipmentInfoList.get(i+3)),
+                                    equipmentInfoList.get(i+4),
+                                    Boolean.parseBoolean(equipmentInfoList.get(i+5))));
+                    break;
+                case tableTennisRacket:
+                    equipments.add
+                            (new TableTennisRacket(Integer.parseInt(equipmentInfoList.get(i+1)),
+                                    equipmentInfoList.get(i+2),
+                                    Boolean.parseBoolean(equipmentInfoList.get(i+3)),
+                                    Boolean.parseBoolean(equipmentInfoList.get(i+4))));
+                    break;
+                default:
+                    break;
+            }
+        }
+        return equipments;
+    }
+
+    public ArrayList<Equipment> readFromFileAndMakeObjects() throws IOException {
+        equipmentInfoList = new ArrayList<>();
+        reader = new BufferedReader(new FileReader("resources\\equipment.txt"));
+        sc = new Scanner(reader);
+        while(sc.hasNextLine()) {
+            equipmentInfoList.add(sc.nextLine());
+        }
+        reader.close();
+
         equipments = new ArrayList<>();
         final String ball = "Ball";
         final String tableTennisRacket = "TableTennisRacket";
